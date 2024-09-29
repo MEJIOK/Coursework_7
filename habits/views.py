@@ -22,6 +22,9 @@ class HabitsListAPIView(generics.ListAPIView):
     queryset = Habits.objects.all()
     pagination_class = HabitsPagination
 
+    def get_queryset(self):
+        return Habits.objects.filter(user=self.request.user)
+
 
 class HabitsRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = HabitsSerializers

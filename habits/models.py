@@ -1,5 +1,6 @@
-from users.models import User
 from django.db import models
+
+from users.models import User
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -9,14 +10,17 @@ class Habits(models.Model):
         (True, "Полезная"),
         (False, "Вредная"),
     )
+
     period = (
         (True, "Ежедневно"),
         (False, "Еженедельно"),
     )
+
     publication_option = (
         (True, "Опубликовано"),
         (False, "Не опубликовано"),
     )
+
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name="Пользователь"
     )
@@ -57,6 +61,7 @@ class Habits(models.Model):
         help_text="Чем пользователь может наградить себя после выполнения привычки",
         **NULLABLE,
     )
+    is_good = models.BooleanField(default=True, verbose_name="Полезная привычка")
 
     def __str__(self):
         return f"Я буду {self.action} в {self.time} в {self.place}"

@@ -1,6 +1,8 @@
-from celery import shared_task
-from habits.models import Habits
 import datetime
+
+from celery import shared_task
+
+from habits.models import Habits
 from habits.services import send_telegram_message
 
 

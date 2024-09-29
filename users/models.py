@@ -15,6 +15,7 @@ class User(AbstractUser):
     tg_chat_id = models.CharField(
         max_length=100, verbose_name="телеграмм chat_id", **NULLABLE
     )
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
