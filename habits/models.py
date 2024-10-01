@@ -11,9 +11,10 @@ class Habits(models.Model):
         (False, "Вредная"),
     )
 
-    period = (
-        (True, "Ежедневно"),
-        (False, "Еженедельно"),
+    period_options = (
+        (1, "Ежедневно"),
+        (7, "Еженедельно"),
+        (30, "Ежемесячно"),
     )
 
     publication_option = (
@@ -30,7 +31,6 @@ class Habits(models.Model):
         help_text="Место в котором необходимо выполнять привычку",
     )
     time = models.TimeField(
-        max_length=25,
         verbose_name="Время",
         help_text="Время, когда надо выполнить привычку",
     )
@@ -40,8 +40,8 @@ class Habits(models.Model):
         help_text="Действие, которое надо сделать",
     )
     duration = models.SmallIntegerField(verbose_name="Продолжительность в минутах")
-    periodicity = models.BooleanField(
-        default=True, choices=period, verbose_name="Периодичность"
+    periodicity = models.IntegerField(
+        default=1, choices=period_options, verbose_name="Периодичность (в днях)"
     )
     sign_of_habit = models.BooleanField(
         default=True, verbose_name="Признак привычки", choices=habit_option

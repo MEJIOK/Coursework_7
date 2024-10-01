@@ -16,9 +16,9 @@ class HabitsSerializers(serializers.ModelSerializer):
                 "указать вознаграждение одновременно."
             )
 
-        if attrs.get("duration") > 2:  # Поскольку duration в минутах
+        if attrs.get("duration") > 120:  # Поскольку duration в минутах
             raise serializers.ValidationError(
-                "Время выполнения привычки не может превышать 120 секунд."
+                "Время выполнения привычки не может превышать 120 минут."
             )
 
         if attrs.get("related") and not attrs["related"].is_good:
@@ -32,9 +32,10 @@ class HabitsSerializers(serializers.ModelSerializer):
                 "связанную привычку или вознаграждение."
             )
 
-        if attrs.get("periodicity") < 7:
+        # Новая проверка на периодичность (целое число)
+        if 7 > attrs.get("periodicity") > 0:
             raise serializers.ValidationError(
-                "Периодичность привычки не может быть реже 1 раза в 7 дней."
+                "Периодичность привычки должна быть больше 7 дней."
             )
 
         return attrs
